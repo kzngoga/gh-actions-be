@@ -5,15 +5,15 @@ on:
       - main
       - dev
 env:
-  MONGODB_DB_NAME: gha-demo
+  MONGODB_DB_NAME: gha-demo # Workflow level env variable (works for all jobs in the WF)
 jobs:
   test:
-    env:
+    env: # Job level env variable (works for only curren job in the WF)
       MONGODB_CLUSTER_ADDRESS: study-gh-actions.htlq5dn.mongodb.net
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }} # Secrets defined on Github. settings/secrets
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8070
-    environment: testing
+    environment: testing # Define an environment with separate configs (vars, secrets, filters) on github under settings/secrets
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
